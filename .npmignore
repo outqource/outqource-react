@@ -1,3 +1,11 @@
-node_modules
+# npm
+node_modules/
+
+# dev
 src
-test
+.gitignore
+rollup.config.js
+tsconfig.json
+
+# GIT
+.git

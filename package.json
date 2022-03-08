@@ -3,6 +3,7 @@
   "version": "0.0.1",
   "repository": "https://github.com/outqource/outqource-react",
   "author": "AlpoxDev <contact@alpox.dev>",
+  "description": "OUTQOURCE React Library",
   "license": "MIT",
   "keywords": [
     "react",
@@ -20,10 +21,13 @@
     "@emotion/core": "^11.0.0",
     "@emotion/react": "^11.8.1",
     "@emotion/styled": "^11.8.1",
+    "@reduxjs/toolkit": "^1.8.0",
     "axios": "^0.26.0",
     "classnames": "^2.3.1",
+    "query-string": "^7.1.1",
     "react-dropzone": "^12.0.4",
-    "react-modal": "^3.14.4"
+    "react-modal": "^3.14.4",
+    "react-redux": "^7.2.6"
   },
   "devDependencies": {
     "@types/node": "^17.0.21",
