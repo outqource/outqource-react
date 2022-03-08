@@ -1,8 +1,8 @@
-import React, { memo } from 'react';
-import ReactModal from 'react-modal';
-import styled from '@emotion/styled';
+import React, { memo } from "react";
+import ReactModal from "react-modal";
+import styled from "@emotion/styled";
 
-import { useThemeConfig, ComponentProps } from '../../lib';
+import { useThemeConfig, ComponentProps } from "../../hooks";
 
 export interface ModalProps extends ComponentProps {
   style?: ReactModal.Styles;
@@ -12,18 +12,18 @@ export interface ModalProps extends ComponentProps {
 
 export const defaultStyle: ReactModal.Styles = {
   overlay: {
-    position: 'fixed',
+    position: "fixed",
     top: 0,
     left: 0,
     right: 0,
     bottom: 0,
 
-    width: '100%',
-    height: '100%',
-    backgroundColor: 'rgba(0,0,0,0.5)',
+    width: "100%",
+    height: "100%",
+    backgroundColor: "rgba(0,0,0,0.5)",
   },
   content: {
-    outline: 'none',
+    outline: "none",
     border: 0,
   },
 };
@@ -35,7 +35,7 @@ const Component = ({
   onRequestClose,
   ...props
 }: ModalProps): React.ReactElement => {
-  const themeCSS = useThemeConfig({ ...props, component: 'modal' });
+  const themeCSS = useThemeConfig({ ...props, component: "modal" });
 
   return (
     <ModalJSX

@@ -1,13 +1,13 @@
-import React, { memo } from 'react';
-import styled from '@emotion/styled';
-import { ComponentProps, useThemeConfig } from '../../lib';
+import React, { memo } from "react";
+import styled from "@emotion/styled";
+import { useThemeConfig, ComponentProps } from "../../hooks";
 
 export interface TextareaProps
   extends ComponentProps,
     React.HTMLAttributes<HTMLTextAreaElement> {}
 
 const Component = ({ className, ...props }: TextareaProps): JSX.Element => {
-  const themeCSS = useThemeConfig({ ...props, component: 'textarea' });
+  const themeCSS = useThemeConfig({ ...props, component: "textarea" });
   return <TextareaJSX className={className} themeCSS={themeCSS} {...props} />;
 };
 

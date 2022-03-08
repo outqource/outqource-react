@@ -1,11 +1,11 @@
 /* tslint:disable:no-unused-variable */
-import styled from '@emotion/styled';
-import React, { memo } from 'react';
-import cx from 'classnames';
+import styled from "@emotion/styled";
+import React, { memo } from "react";
+import cx from "classnames";
 
-import { ComponentProps, useThemeConfig } from '../../lib';
+import { useThemeConfig, ComponentProps } from "../../hooks";
 
-import { Dropdown, DropdownProps } from '../Dropdown';
+import { Dropdown, DropdownProps } from "../Dropdown";
 
 export interface DropdownInputProps extends ComponentProps, DropdownProps {
   icon?: boolean;
@@ -25,7 +25,7 @@ const Component = ({
   onChangeOpen,
   ...props
 }: DropdownInputProps): JSX.Element => {
-  const themeCSS = useThemeConfig({ ...props, component: 'dropdownInput' });
+  const themeCSS = useThemeConfig({ ...props, component: "dropdownInput" });
 
   return (
     <Dropdown

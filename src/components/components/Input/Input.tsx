@@ -1,9 +1,9 @@
 /* tslint:disable:no-unused-variable */
-import styled from '@emotion/styled';
-import React, { memo } from 'react';
-import cx from 'classnames';
+import styled from "@emotion/styled";
+import React, { memo } from "react";
+import cx from "classnames";
 
-import { ComponentProps, useThemeConfig } from '../../lib';
+import { ComponentProps, useThemeConfig } from "../../hooks";
 
 export interface InputProps
   extends ComponentProps,
@@ -16,11 +16,11 @@ const Component = ({
   icon = false,
   ...props
 }: InputProps): JSX.Element => {
-  const themeCSS = useThemeConfig({ ...props, component: 'input' });
+  const themeCSS = useThemeConfig({ ...props, component: "input" });
   return (
     <InputJSX
       themeCSS={themeCSS}
-      className={cx(className, { 'icon-input': icon })}
+      className={cx(className, { "icon-input": icon })}
       {...props}
     />
   );

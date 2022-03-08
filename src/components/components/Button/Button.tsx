@@ -1,8 +1,8 @@
-import React, { memo } from 'react';
-import cx from 'classnames';
-import styled from '@emotion/styled';
+import React, { memo } from "react";
+import cx from "classnames";
+import styled from "@emotion/styled";
 
-import { useThemeConfig, ComponentProps } from '../../lib';
+import { useThemeConfig, ComponentProps } from "../../hooks";
 
 export interface ButtonProps
   extends ComponentProps,
@@ -17,7 +17,7 @@ const Component = ({
   active,
   ...props
 }: ButtonProps): JSX.Element => {
-  const themeCSS = useThemeConfig({ ...props, component: 'button' });
+  const themeCSS = useThemeConfig({ ...props, component: "button" });
 
   return (
     <ButtonJSX
@@ -38,6 +38,6 @@ const ButtonJSX = styled.button<ButtonProps>`
   background-color: transparent;
   ${(props) =>
     props.icon &&
-    'display: flex; align-items: center; justify-content: center;'}
+    "display: flex; align-items: center; justify-content: center;"}
   ${(props) => props.themeCSS};
 `;

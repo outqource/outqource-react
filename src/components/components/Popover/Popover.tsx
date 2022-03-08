@@ -1,8 +1,7 @@
-import React, { memo, useCallback, useRef, useState } from 'react';
-import styled from '@emotion/styled';
+import React, { memo, useCallback, useRef, useState } from "react";
+import styled from "@emotion/styled";
 
-import { useThemeConfig, ComponentProps } from '../../lib';
-import { useClickOutside } from '../../hooks';
+import { useThemeConfig, ComponentProps, useClickOutside } from "../../hooks";
 
 export interface PopoverProps
   extends ComponentProps,
@@ -25,7 +24,7 @@ const Component = ({
   ...props
 }: ComponentProps): React.ReactElement => {
   const themeCSS =
-    themeCSSProps ?? useThemeConfig({ ...props, component: 'popover' });
+    themeCSSProps ?? useThemeConfig({ ...props, component: "popover" });
 
   const containerRef = useRef<HTMLDivElement>(null);
   const renderRef = useRef<HTMLDivElement>(null);

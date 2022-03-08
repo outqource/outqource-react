@@ -1,6 +1,6 @@
-import React, { memo } from 'react';
-import styled from '@emotion/styled';
-import { useThemeConfig, ComponentProps } from '../../lib';
+import React, { memo } from "react";
+import styled from "@emotion/styled";
+import { useThemeConfig, ComponentProps } from "../../hooks";
 
 export interface IconProps
   extends ComponentProps,
@@ -13,7 +13,7 @@ const Component = ({
   children,
   ...props
 }: IconProps): JSX.Element | null => {
-  const themeCSS = useThemeConfig({ ...props, component: 'icon' });
+  const themeCSS = useThemeConfig({ ...props, component: "icon" });
 
   return (
     <IconJSX className={className} themeCSS={themeCSS} {...props}>

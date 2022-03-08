@@ -1,13 +1,13 @@
-import React, { memo } from 'react';
-import styled from '@emotion/styled';
+import React, { memo } from "react";
+import styled from "@emotion/styled";
 
-import { useThemeConfig, ComponentProps } from '../../lib';
+import { useThemeConfig, ComponentProps } from "../../hooks";
 
 export interface BoxProps
   extends ComponentProps,
     React.HTMLAttributes<HTMLDivElement> {
   flex?: boolean;
-  flexDirection?: 'row' | 'column';
+  flexDirection?: "row" | "column";
   alignItems?: string;
   justifyContent?: string;
 
@@ -24,7 +24,7 @@ const Component = ({
   children,
   ...props
 }: BoxProps): JSX.Element => {
-  const themeCSS = useThemeConfig({ ...props, component: 'box' });
+  const themeCSS = useThemeConfig({ ...props, component: "box" });
 
   return (
     <BoxJSX className={className} themeCSS={themeCSS} {...props}>
@@ -52,15 +52,15 @@ const BoxJSX = styled.div<BoxProps>`
     ${
       props.gridTemplateColumns
         ? `grid-template-columns: ${props.gridTemplateColumns};`
-        : ''
+        : ""
     }
     ${
       props.gridTemplateRows
         ? `grid-template-rows: ${props.gridTemplateRows};`
-        : ''
+        : ""
     }
-    ${props.gridGap ? `gap: ${props.gridGap};` : ''}
-    ${props.gridRowGap ? `row-gap: ${props.gridRowGap};` : ''}
-    ${props.gridColumnGap ? `column-gap: ${props.gridColumnGap};` : ''}
+    ${props.gridGap ? `gap: ${props.gridGap};` : ""}
+    ${props.gridRowGap ? `row-gap: ${props.gridRowGap};` : ""}
+    ${props.gridColumnGap ? `column-gap: ${props.gridColumnGap};` : ""}
   `};
 `;

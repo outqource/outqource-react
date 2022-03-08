@@ -1,7 +1,7 @@
-import React, { memo } from 'react';
-import styled from '@emotion/styled';
+import React, { memo } from "react";
+import styled from "@emotion/styled";
 
-import { useThemeConfig, ComponentProps } from '../../lib';
+import { useThemeConfig, ComponentProps } from "../../hooks";
 
 export interface DividerProps
   extends ComponentProps,
@@ -14,7 +14,7 @@ const Component = ({
   children,
   ...props
 }: DividerProps): React.ReactElement => {
-  const themeCSS = useThemeConfig({ ...props, component: 'divider' });
+  const themeCSS = useThemeConfig({ ...props, component: "divider" });
   return <DividerJSX className={className} themeCSS={themeCSS} {...props} />;
 };
 

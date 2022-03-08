@@ -1,8 +1,8 @@
-import React, { memo } from 'react';
-import styled from '@emotion/styled';
-import ReactDropzone, { DropzoneOptions } from 'react-dropzone';
+import React, { memo } from "react";
+import styled from "@emotion/styled";
+import ReactDropzone, { DropzoneOptions } from "react-dropzone";
 
-import { useThemeConfig, ComponentProps } from '../../lib';
+import { useThemeConfig, ComponentProps } from "../../hooks";
 
 export interface DropzoneProps extends ComponentProps, DropzoneOptions {}
 
@@ -27,7 +27,7 @@ const Component = ({
   validator,
   ...props
 }: DropzoneProps): React.ReactElement => {
-  const themeCSS = useThemeConfig({ ...props, component: 'dropzone' });
+  const themeCSS = useThemeConfig({ ...props, component: "dropzone" });
 
   return (
     <ReactDropzone

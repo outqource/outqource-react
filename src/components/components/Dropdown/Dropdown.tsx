@@ -1,8 +1,8 @@
-import React, { memo } from 'react';
-import styled from '@emotion/styled';
+import React, { memo } from "react";
+import styled from "@emotion/styled";
 
-import { useThemeConfig, ComponentProps } from '../../lib';
-import { Popover } from '../Popover';
+import { useThemeConfig, ComponentProps } from "../../hooks";
+import { Popover } from "../Popover";
 
 export interface DropdownProps
   extends ComponentProps,
@@ -29,14 +29,14 @@ const Component = ({
   ...props
 }: DropdownProps): React.ReactElement => {
   const themeCSS =
-    themeCSSProps ?? useThemeConfig({ ...props, component: 'popover' });
+    themeCSSProps ?? useThemeConfig({ ...props, component: "popover" });
 
   const dropdownList = (
-    <DropdownList className={listClassname || 'dropdownList'}>
+    <DropdownList className={listClassname || "dropdownList"}>
       {dropdownItems?.map((dropdownItem: React.ReactNode, index: number) => (
         <DropdownItem
           key={`dropdownItem/${index}`}
-          className={itemClassname || 'dropdownItem'}
+          className={itemClassname || "dropdownItem"}
         >
           {dropdownItem}
         </DropdownItem>

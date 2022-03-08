@@ -1,4 +1,9 @@
-import { useDispatch, useSelector, TypedUseSelectorHook } from "react-redux";
+import {
+  Provider,
+  useDispatch,
+  useSelector,
+  TypedUseSelectorHook,
+} from "react-redux";
 import {
   createSlice,
   configureStore,
@@ -9,6 +14,7 @@ export * from "./model";
 export * from "./reducer";
 
 export {
+  Provider,
   createSlice,
   useDispatch,
   useSelector,
