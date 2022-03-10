@@ -1,3 +1,4 @@
-export * from "./_shared";
+export * from "./shared";
 export * from "./components";
 export * from "./redux";
+export * from "./editor";

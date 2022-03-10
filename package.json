@@ -1,6 +1,6 @@
 {
   "name": "outqource-react",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "repository": "https://github.com/outqource/outqource-react",
   "author": "AlpoxDev <contact@alpox.dev>",
   "description": "OUTQOURCE React Library",
@@ -15,7 +15,8 @@
   "module": "build/index.es.js",
   "jsnext:main": "build/index.es.js",
   "scripts": {
-    "build": "rimraf ./build & tsc -b"
+    "clear": "node scripts/clear-build.js",
+    "build": "yarn clear & tsc -b && node scripts/copy-build.js"
   },
   "dependencies": {
     "@emotion/core": "^11.0.0",
@@ -25,9 +26,9 @@
     "axios": "^0.26.0",
     "classnames": "^2.3.1",
     "query-string": "^7.1.1",
+    "react-redux": "^7.2.6",
     "react-dropzone": "^12.0.4",
-    "react-modal": "^3.14.4",
-    "react-redux": "^7.2.6"
+    "react-modal": "^3.14.4"
   },
   "devDependencies": {
     "@types/node": "^17.0.21",
@@ -35,14 +36,15 @@
     "@types/react-dom": "^17.0.13",
     "@types/react-dropzone": "^5.1.0",
     "@types/react-modal": "^3.13.1",
-    "rimraf": "^3.0.2",
-    "rollup": "^2.70.0",
-    "rollup-plugin-commonjs": "^10.1.0",
-    "rollup-plugin-node-resolve": "^5.2.0",
-    "rollup-plugin-peer-deps-external": "^2.2.4",
-    "rollup-plugin-terser": "^7.0.2",
-    "rollup-plugin-typescript2": "^0.31.2",
+    "fs-extra": "^10.0.1",
     "tslib": "^2.3.1",
     "typescript": "^4.5.4"
+  },
+  "peerDependencies": {
+    "@emotion/core": "^11.0.0",
+    "@emotion/react": "^11.8.1",
+    "@emotion/styled": "^11.8.1",
+    "react-dropzone": "^12.0.4",
+    "react-modal": "^3.14.4"
   }
 }
