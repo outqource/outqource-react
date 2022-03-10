@@ -1,6 +1,8 @@
 const fs = require('fs-extra');
 const path = require('path');
 
+const folders = require('./constant').buildFolders;
+
 const buildPath = path.join(__dirname, '../build');
 const targetPath = path.join(__dirname, '../');
 
@@ -20,7 +22,5 @@ async function copyFolders(folders){
 		}
 	))
 }
-
-const folders = ['components', 'redux', 'shared'];
 
 copyFolders(folders).then();

@@ -1,6 +1,10 @@
 const fs = require('fs-extra');
 const path = require('path');
 
+const folders = require('./constant').buildFolders;
+
+console.log(`folders`, folders);
+
 const buildPath = path.join(__dirname, '../build');
 const targetPath = path.join(__dirname, '../');
 
@@ -29,8 +33,6 @@ async function clearFolders(folders){
 		})
 	)
 }
-
-const folders = ['components', 'redux', 'shared'];
 
 clearBuildFolder().then(() => {
 	clearFolders(folders).then();
