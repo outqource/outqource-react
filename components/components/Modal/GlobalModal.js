@@ -16,15 +16,15 @@ var GlobalComponent = function (_a) {
     var state = useContext(ModalContext).state;
     var modals = null;
     if (state.length > 0 && multiple) {
-        modals = state.map(function (modal) {
+        modals = state.map(function (modal, index) {
             var Component = modal.component;
-            return React.createElement(Component, __assign({}, modal.props));
+            return React.createElement(Component, __assign({ key: "modals/".concat(index) }, modal.props));
         });
     }
     else if (state.length > 0 && !multiple) {
-        var modalList = state.map(function (modal) {
+        var modalList = state.map(function (modal, index) {
             var Component = modal.component;
-            return React.createElement(Component, __assign({}, modal.props));
+            return React.createElement(Component, __assign({ key: "modals/".concat(index) }, modal.props));
         });
         if (last)
             modals = modalList[state.length - 1];

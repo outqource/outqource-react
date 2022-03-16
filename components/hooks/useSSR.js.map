@@ -1,0 +1,1 @@
+{"version":3,"file":"useSSR.js","sourceRoot":"","sources":["../../../src/components/hooks/useSSR.ts"],"names":[],"mappings":"AAAA,SAAS,MAAM;IACb,IAAM,KAAK,GAAG,OAAO,MAAM,KAAK,WAAW,IAAI,MAAM,CAAC,QAAQ,IAAI,MAAM,CAAC,QAAQ,CAAC,eAAe,CAAC;IAElG,OAAO;QACL,SAAS,EAAE,KAAK;QAChB,QAAQ,EAAE,CAAC,KAAK;KACjB,CAAC;AACJ,CAAC;AAED,eAAe,MAAM,CAAC"}

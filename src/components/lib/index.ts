@@ -1,3 +1,2 @@
-export * from "./themeProvider";
-export * from "./normalize";
-export * from "./modalProvider";
+export * from "./Emotion/ThemeProvider";
+export * from "./Modal/ModalProvider";

@@ -1,3 +1,3 @@
-export { Modal } from './Modal';
-export { GlobalModal } from './GlobalModal';
+export { Modal } from "./Modal";
+export { GlobalModal } from "./GlobalModal";
 //# sourceMappingURL=index.js.map

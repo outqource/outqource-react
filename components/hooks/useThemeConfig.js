@@ -9,15 +9,15 @@ var __rest = (this && this.__rest) || function (s, e) {
         }
     return t;
 };
-import { useMemo } from "react";
-import { useTheme, css } from "@emotion/react";
-export var useThemeConfig = function (_a) {
+import { useMemo } from 'react';
+import { useTheme, css } from '@emotion/react';
+var useThemeConfig = function (_a) {
     var component = _a.component, props = __rest(_a, ["component"]);
     // 테마에 해당하는 태그 없으면 무시
     var theme = useTheme();
     var serializeStyle = useMemo(function () {
         if (!theme[component])
-            return "";
+            return '';
         var componentKeys = Object.keys(theme[component]);
         var propsKeys = Object.keys(props);
         var foundedList = [];
@@ -26,17 +26,18 @@ export var useThemeConfig = function (_a) {
                 foundedList.push(component);
         });
         if (foundedList.length === 0)
-            return "";
+            return '';
         var serializeStyle = undefined;
         foundedList.forEach(function (founded) {
             var _a;
             if (!serializeStyle) {
                 var style = theme[component][founded];
-                serializeStyle = ((_a = css(style)) === null || _a === void 0 ? void 0 : _a.styles) || "";
+                serializeStyle = ((_a = css(style)) === null || _a === void 0 ? void 0 : _a.styles) || '';
             }
         });
         return serializeStyle;
     }, [props]);
-    return serializeStyle || "";
+    return serializeStyle || '';
 };
+export default useThemeConfig;
 //# sourceMappingURL=useThemeConfig.js.map

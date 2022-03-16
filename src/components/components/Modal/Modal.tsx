@@ -1,58 +1,57 @@
-import React, { memo } from "react";
-import ReactModal from "react-modal";
-import styled from "@emotion/styled";
+import React, { memo } from 'react';
+import ReactModal from 'react-modal';
+import styled from '@emotion/styled';
 
-import { useThemeConfig, ComponentProps } from "../../hooks";
+import { useThemeConfig, ComponentProps } from '../../hooks';
+import { useMemo } from 'react';
 
-export interface ModalProps extends ComponentProps {
-  style?: ReactModal.Styles;
-  onRequestClose(): void;
-  children: string | React.ReactNode | React.ReactNodeArray;
+export interface ModalProps extends ComponentProps, Omit<Omit<ReactModal.Props, 'isOpen'>, 'className'> {
+  isOpen?: boolean;
 }
 
 export const defaultStyle: ReactModal.Styles = {
   overlay: {
-    position: "fixed",
+    position: 'fixed',
     top: 0,
     left: 0,
     right: 0,
     bottom: 0,
 
-    width: "100%",
-    height: "100%",
-    backgroundColor: "rgba(0,0,0,0.5)",
+    width: '100%',
+    height: '100%',
+    backgroundColor: 'rgba(0,0,0,0.5)',
   },
   content: {
-    outline: "none",
+    outline: 'none',
     border: 0,
   },
 };
 
-const Component = ({
-  children,
-  className,
-  style = { overlay: {}, content: {} },
-  onRequestClose,
-  ...props
-}: ModalProps): React.ReactElement => {
-  const themeCSS = useThemeConfig({ ...props, component: "modal" });
+const Component = React.forwardRef(({ children, className, onRequestClose, isOpen = true, ...props }: ModalProps, ref: React.Ref<ReactModal>) => {
+  const themeCSS = useThemeConfig({ ...props, component: 'modal' });
+  const overrideStyle = useMemo(
+    (): ReactModal.Styles => ({
+      overlay: { ...defaultStyle.overlay, ...(props?.style?.overlay ?? {}) },
+      content: { ...defaultStyle.content, ...(props?.style?.content ?? {}) },
+    }),
+    [props.style]
+  );
 
   return (
     <ModalJSX
-      isOpen
+      ref={ref}
+      isOpen={isOpen}
       onRequestClose={onRequestClose}
-      style={{
-        overlay: { ...defaultStyle.overlay, ...style.overlay },
-        content: { ...defaultStyle.content, ...style.content },
-      }}
+      style={overrideStyle}
       className={className}
       themeCSS={themeCSS}
+      ariaHideApp={false}
       {...props}
     >
       {children}
     </ModalJSX>
   );
-};
+});
 
 export const Modal = memo(Component);
 
