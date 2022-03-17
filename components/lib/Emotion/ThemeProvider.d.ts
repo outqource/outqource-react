@@ -1,4 +1,3 @@
-/// <reference types="react" />
 import { ThemeProviderProps as EmotionThemeProviderProps } from "@emotion/react";
 import { CSSInterpolation } from "@emotion/serialize";
 export declare type CustomTheme = {

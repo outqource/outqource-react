@@ -19,7 +19,8 @@
     "suppressImplicitAnyIndexErrors": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
-    "strict": false
+    "strict": false,
+    "skipLibCheck": true
   },
   "include": ["src"],
   "exclude": ["node_modules", "build"]
