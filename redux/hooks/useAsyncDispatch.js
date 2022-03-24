@@ -103,15 +103,15 @@ var useAsyncDispatch = function (props) {
         }
     }, [props.clearData]);
     var getData = React.useCallback(function (data) {
-        if (props.fetch) {
-            dispatch(props.fetch(data));
+        if (props.getData) {
+            dispatch(props.getData(data));
         }
-    }, [props.fetch]);
+    }, [props.getData]);
     var refreshData = React.useCallback(function (data) {
-        if (props.refresh) {
-            dispatch(props.refresh(data));
+        if (props.refreshData) {
+            dispatch(props.refreshData(data));
         }
-    }, [props.refresh]);
+    }, [props.refreshData]);
     return {
         setData: setData,
         setError: setError,

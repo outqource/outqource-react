@@ -8,8 +8,8 @@ export declare type IUseAsyncDispatch = {
     setCount?: Function;
     clear?: Function;
     clearData?: Function;
-    fetch?: Function;
-    refresh?: Function;
+    getData?: Function;
+    refreshData?: Function;
 };
 export declare const createAsyncActions: (stateKey: string) => {
     [x: string]: (state: any, action: PayloadAction<any>) => void;

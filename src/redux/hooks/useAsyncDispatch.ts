@@ -11,8 +11,8 @@ export type IUseAsyncDispatch = {
   setCount?: Function;
   clear?: Function;
   clearData?: Function;
-  fetch?: Function;
-  refresh?: Function;
+  getData?: Function;
+  refreshData?: Function;
 };
 
 const capitalizeString = (text: string): string => {
@@ -140,20 +140,20 @@ const useAsyncDispatch = (props: IUseAsyncDispatch) => {
 
   const getData = React.useCallback(
     (data?: any) => {
-      if (props.fetch) {
-        dispatch(props.fetch(data));
+      if (props.getData) {
+        dispatch(props.getData(data));
       }
     },
-    [props.fetch]
+    [props.getData]
   );
 
   const refreshData = React.useCallback(
     (data?: any) => {
-      if (props.refresh) {
-        dispatch(props.refresh(data));
+      if (props.refreshData) {
+        dispatch(props.refreshData(data));
       }
     },
-    [props.refresh]
+    [props.refreshData]
   );
 
   return {
