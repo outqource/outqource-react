@@ -5,6 +5,7 @@ import {
   TypedUseSelectorHook,
 } from "react-redux";
 import {
+  PayloadAction,
   createSlice,
   configureStore,
   createAsyncThunk,
@@ -12,8 +13,10 @@ import {
 
 export * from "./model";
 export * from "./reducer";
+export * from "./thunk";
 
 export {
+  PayloadAction,
   Provider,
   createSlice,
   useDispatch,

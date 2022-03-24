@@ -7,7 +7,7 @@
     "sourceMap": true,
     "allowJs": false,
     "jsx": "react",
-    "declaration": true,
+    "declaration": false,
     "moduleResolution": "node",
     "esModuleInterop": true,
     "resolveJsonModule": true,
