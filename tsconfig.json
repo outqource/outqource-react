@@ -7,7 +7,7 @@
     "sourceMap": true,
     "allowJs": false,
     "jsx": "react",
-    "declaration": false,
+    "declaration": true,
     "moduleResolution": "node",
     "esModuleInterop": true,
     "resolveJsonModule": true,
@@ -22,6 +22,6 @@
     "strict": false,
     "skipLibCheck": true
   },
-  "include": ["src"],
+  "include": ["src", "node_modules/@reduxjs/toolkit"],
   "exclude": ["node_modules", "build"]
 }

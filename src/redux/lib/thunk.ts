@@ -1,5 +1,6 @@
 import axios from "axios";
 import { createAsyncThunk } from "@reduxjs/toolkit";
+import type { Dispatch } from "redux";
 import type {
   AsyncThunkOptions,
   AsyncThunkPayloadCreator,
@@ -43,10 +44,26 @@ const getPrevState = (state: any, mergeKeys: string[]): any => {
   return prevState;
 };
 
-export const createAsyncPaginationThunk = <Returned, ThunkArg = void>(
+type AsyncThunkConfig = {
+  state?: unknown;
+  dispatch?: Dispatch;
+  extra?: unknown;
+  rejectValue?: unknown;
+  serializedErrorType?: unknown;
+  pendingMeta?: unknown;
+  fulfilledMeta?: unknown;
+  rejectedMeta?: unknown;
+};
+
+export const createAsyncPaginationThunk = <
+  Returned,
+  ThunkArg = void,
+  ThunkApiConfig extends AsyncThunkConfig = {}
+>(
   typePrefix: string,
   payloadCreator: AsyncThunkPayloadCreator<Returned, ThunkArg, {}>,
-  options?: AsyncThunkOptions<ThunkArg, {}> & AsyncThunkExtraOptions
+  extraOptions?: AsyncThunkExtraOptions,
+  options?: AsyncThunkOptions<ThunkArg, {}>
 ) => {
   const {
     mergeKey,
@@ -54,13 +71,13 @@ export const createAsyncPaginationThunk = <Returned, ThunkArg = void>(
     initialPage = 1,
     countKey = "count",
     initialCount = 0,
-  } = options ?? {};
+  } = extraOptions ?? {};
   const mergeKeys = getMergeKeys(mergeKey);
 
   const newPayloadCreator: AsyncThunkPayloadCreator<
     Returned,
     ThunkArg,
-    {}
+    ThunkApiConfig
   > = async (arg, thunkAPI) => {
     const response = (await payloadCreator(arg, thunkAPI)) as any;
 
@@ -91,13 +108,14 @@ export const createAsyncPaginationThunk = <Returned, ThunkArg = void>(
     });
   };
 
-  return createAsyncThunk(typePrefix, newPayloadCreator, options);
+  return createAsyncThunk(typePrefix, newPayloadCreator, options as any);
 };
 
 export const createAsyncRefreshThunk = <Returned, ThunkArg = void>(
   typePrefix: string,
   payloadCreator: AsyncThunkPayloadCreator<Returned, ThunkArg, {}>,
-  options?: AsyncThunkOptions<ThunkArg, {}> & AsyncThunkExtraOptions
+  extraOptions?: AsyncThunkExtraOptions,
+  options?: AsyncThunkOptions<ThunkArg, {}>
 ) => {
   const {
     mergeKey,
@@ -105,7 +123,7 @@ export const createAsyncRefreshThunk = <Returned, ThunkArg = void>(
     initialPage = 1,
     countKey = "count",
     initialCount = 0,
-  } = options ?? {};
+  } = extraOptions ?? {};
   const mergeKeys = getMergeKeys(mergeKey);
 
   const newPayloadCreator: AsyncThunkPayloadCreator<

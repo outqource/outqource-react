@@ -73,8 +73,8 @@ var getPrevState = function (state, mergeKeys) {
     }
     return prevState;
 };
-export var createAsyncPaginationThunk = function (typePrefix, payloadCreator, options) {
-    var _a = options !== null && options !== void 0 ? options : {}, mergeKey = _a.mergeKey, _b = _a.pageKey, pageKey = _b === void 0 ? "page" : _b, _c = _a.initialPage, initialPage = _c === void 0 ? 1 : _c, _d = _a.countKey, countKey = _d === void 0 ? "count" : _d, _e = _a.initialCount, initialCount = _e === void 0 ? 0 : _e;
+export var createAsyncPaginationThunk = function (typePrefix, payloadCreator, extraOptions, options) {
+    var _a = extraOptions !== null && extraOptions !== void 0 ? extraOptions : {}, mergeKey = _a.mergeKey, _b = _a.pageKey, pageKey = _b === void 0 ? "page" : _b, _c = _a.initialPage, initialPage = _c === void 0 ? 1 : _c, _d = _a.countKey, countKey = _d === void 0 ? "count" : _d, _e = _a.initialCount, initialCount = _e === void 0 ? 0 : _e;
     var mergeKeys = getMergeKeys(mergeKey);
     var newPayloadCreator = function (arg, thunkAPI) { return __awaiter(void 0, void 0, void 0, function () {
         var response, state, prevState;
@@ -108,8 +108,8 @@ export var createAsyncPaginationThunk = function (typePrefix, payloadCreator, op
     }); };
     return createAsyncThunk(typePrefix, newPayloadCreator, options);
 };
-export var createAsyncRefreshThunk = function (typePrefix, payloadCreator, options) {
-    var _a = options !== null && options !== void 0 ? options : {}, mergeKey = _a.mergeKey, _b = _a.pageKey, pageKey = _b === void 0 ? "page" : _b, _c = _a.initialPage, initialPage = _c === void 0 ? 1 : _c, _d = _a.countKey, countKey = _d === void 0 ? "count" : _d, _e = _a.initialCount, initialCount = _e === void 0 ? 0 : _e;
+export var createAsyncRefreshThunk = function (typePrefix, payloadCreator, extraOptions, options) {
+    var _a = extraOptions !== null && extraOptions !== void 0 ? extraOptions : {}, mergeKey = _a.mergeKey, _b = _a.pageKey, pageKey = _b === void 0 ? "page" : _b, _c = _a.initialPage, initialPage = _c === void 0 ? 1 : _c, _d = _a.countKey, countKey = _d === void 0 ? "count" : _d, _e = _a.initialCount, initialCount = _e === void 0 ? 0 : _e;
     var mergeKeys = getMergeKeys(mergeKey);
     var newPayloadCreator = function (arg, thunkAPI) { return __awaiter(void 0, void 0, void 0, function () {
         var response, state, prevState, nextState;
