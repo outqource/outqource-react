@@ -9,13 +9,17 @@ var __rest = (this && this.__rest) || function (s, e) {
         }
     return t;
 };
-import useAsyncSelector from './useAsyncSelector';
-import useAsyncDispatch from './useAsyncDispatch';
+import useAsyncSelector from "./useAsyncSelector";
+import useAsyncDispatch from "./useAsyncDispatch";
 var useAsyncReducer = function (_a) {
     var stateKey = _a.stateKey, paginationKey = _a.paginationKey, limit = _a.limit, props = __rest(_a, ["stateKey", "paginationKey", "limit"]);
     return function () {
-        var _a = useAsyncSelector({ stateKey: stateKey, paginationKey: paginationKey, limit: limit }), data = _a.data, error = _a.error, pagination = _a.pagination;
-        var _b = useAsyncDispatch(props), setData = _b.setData, setError = _b.setError, setStatus = _b.setStatus, setPage = _b.setPage, setCount = _b.setCount, clear = _b.clear, clearData = _b.clearData;
+        var _a = useAsyncSelector({
+            stateKey: stateKey,
+            paginationKey: paginationKey,
+            limit: limit,
+        }), data = _a.data, error = _a.error, pagination = _a.pagination;
+        var _b = useAsyncDispatch(props), setData = _b.setData, setError = _b.setError, setStatus = _b.setStatus, setPage = _b.setPage, setCount = _b.setCount, clear = _b.clear, clearData = _b.clearData, getData = _b.getData, refreshData = _b.refreshData;
         return {
             data: data,
             error: error,
@@ -27,6 +31,8 @@ var useAsyncReducer = function (_a) {
             setCount: setCount,
             clear: clear,
             clearData: clearData,
+            getData: getData,
+            refreshData: refreshData,
         };
     };
 };
