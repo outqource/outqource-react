@@ -1,5 +1,5 @@
-import { IUseAsyncSelector } from "./useAsyncSelector";
-import { IUseAsyncDispatch } from "./useAsyncDispatch";
+import { IUseAsyncSelector } from './useAsyncSelector';
+import { IUseAsyncDispatch } from './useAsyncDispatch';
 export declare type IUseAsyncReducer = IUseAsyncSelector & IUseAsyncDispatch;
 declare const useAsyncReducer: ({ stateKey, paginationKey, limit, ...props }: IUseAsyncReducer) => () => {
     data: any;
@@ -12,7 +12,7 @@ declare const useAsyncReducer: ({ stateKey, paginationKey, limit, ...props }: IU
     setCount: (data: number) => void;
     clear: () => void;
     clearData: () => void;
-    getData: (data?: any) => void;
-    refreshData: (data?: any) => void;
+    getData: <T = any>(data?: T | undefined) => Promise<any>;
+    refreshData: <T_1 = any>(data?: T_1 | undefined) => Promise<any>;
 };
 export default useAsyncReducer;

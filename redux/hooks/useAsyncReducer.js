@@ -9,8 +9,9 @@ var __rest = (this && this.__rest) || function (s, e) {
         }
     return t;
 };
-import useAsyncSelector from "./useAsyncSelector";
-import useAsyncDispatch from "./useAsyncDispatch";
+/* eslint-disable react-hooks/rules-of-hooks */
+import useAsyncSelector from './useAsyncSelector';
+import useAsyncDispatch from './useAsyncDispatch';
 var useAsyncReducer = function (_a) {
     var stateKey = _a.stateKey, paginationKey = _a.paginationKey, limit = _a.limit, props = __rest(_a, ["stateKey", "paginationKey", "limit"]);
     return function () {

@@ -1,7 +1,7 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 var useAsyncSelector = function (_a) {
-    var stateKey = _a.stateKey, _b = _a.paginationKey, paginationKey = _b === void 0 ? undefined : _b, _c = _a.limit, limit = _c === void 0 ? 20 : _c;
+    var stateKey = _a.stateKey, _b = _a.paginationKey, paginationKey = _b === void 0 ? 'rows' : _b, _c = _a.limit, limit = _c === void 0 ? 20 : _c;
     var selectState = useSelector(function (state) {
         var stateKeys = stateKey.split('.');
         var itemState = state;
