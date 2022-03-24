@@ -21,18 +21,12 @@ const capitalizeString = (text: string): string => {
 };
 
 const getMethodName = (stateKeys: string[]): string => {
-  let methodName = "";
-  stateKeys.forEach((stateKey: string) => {
-    methodName = `${methodName}${capitalizeString(stateKey)}`;
-  });
-
-  return methodName;
+  if (stateKeys.length !== 2) throw new Error("StateKey가 잘못되었습니다");
+  return `${capitalizeString(stateKeys[1])}`;
 };
 
 export const createAsyncActions = (stateKey: string) => {
   const stateKeys = stateKey.split(".");
-  if (stateKeys.length !== 2) throw new Error("StateKey가 잘못되었습니다");
-
   const methodName = getMethodName(stateKeys);
   const dataKey = stateKeys[1];
 
@@ -77,6 +71,19 @@ export const createAsyncActions = (stateKey: string) => {
   };
 };
 
+export const getAsyncActions = (actions: object, stateKey: string) => {
+  const methodName = getMethodName(stateKey.split("."));
+
+  const filterActions: any = {};
+  Object.entries(actions).forEach(([key, value]) => {
+    if (key.includes(methodName)) {
+      filterActions[key.replace(methodName, "")] = value;
+    }
+  });
+
+  return filterActions;
+};
+
 const useAsyncDispatch = (props: IUseAsyncDispatch) => {
   const dispatch = useDispatch();
 
@@ -87,7 +94,7 @@ const useAsyncDispatch = (props: IUseAsyncDispatch) => {
         dispatch(props.setData(data));
       }
     },
-    [props.setData]
+    [dispatch, props]
   );
 
   const setError = React.useCallback(
@@ -96,7 +103,7 @@ const useAsyncDispatch = (props: IUseAsyncDispatch) => {
         dispatch(props.setError(data));
       }
     },
-    [props.setError]
+    [dispatch, props]
   );
 
   const setStatus = React.useCallback(
@@ -105,7 +112,7 @@ const useAsyncDispatch = (props: IUseAsyncDispatch) => {
         dispatch(props.setStatus(data));
       }
     },
-    [props.setStatus]
+    [dispatch, props]
   );
 
   const setPage = React.useCallback(
@@ -114,7 +121,7 @@ const useAsyncDispatch = (props: IUseAsyncDispatch) => {
         dispatch(props.setPage(data));
       }
     },
-    [props.setPage]
+    [dispatch, props]
   );
 
   const setCount = React.useCallback(
@@ -123,37 +130,37 @@ const useAsyncDispatch = (props: IUseAsyncDispatch) => {
         dispatch(props.setCount(data));
       }
     },
-    [props.setCount]
+    [dispatch, props]
   );
 
   const clear = React.useCallback(() => {
     if (props.clear) {
       dispatch(props.clear());
     }
-  }, [props.clear]);
+  }, [dispatch, props]);
 
   const clearData = React.useCallback(() => {
     if (props.clearData) {
       dispatch(props.clearData());
     }
-  }, [props.clearData]);
+  }, [dispatch, props]);
 
   const getData = React.useCallback(
-    (data?: any) => {
+    async <T = any>(data?: T) => {
       if (props.getData) {
-        dispatch(props.getData(data));
+        return await dispatch(props.getData(data));
       }
     },
-    [props.getData]
+    [dispatch, props]
   );
 
   const refreshData = React.useCallback(
-    (data?: any) => {
+    async <T = any>(data?: T) => {
       if (props.refreshData) {
-        dispatch(props.refreshData(data));
+        return await dispatch(props.refreshData(data));
       }
     },
-    [props.refreshData]
+    [dispatch, props]
   );
 
   return {

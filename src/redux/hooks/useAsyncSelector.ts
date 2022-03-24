@@ -24,11 +24,11 @@ export type TUseAsyncSelector = {
   pagination: AsyncSelectorPagination;
 };
 
-const useAsyncSelector = ({ stateKey, paginationKey = undefined, limit = 20 }: IUseAsyncSelector): TUseAsyncSelector => {
+const useAsyncSelector = ({ stateKey, paginationKey = 'rows', limit = 20 }: IUseAsyncSelector): TUseAsyncSelector => {
   const selectState = useSelector((state: any) => {
     const stateKeys = stateKey.split('.');
     let itemState = state;
-    stateKeys.forEach(stateKey => {
+    stateKeys.forEach((stateKey) => {
       itemState = itemState[stateKey];
     });
 
