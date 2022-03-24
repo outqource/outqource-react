@@ -55,10 +55,9 @@ function customizer(objValue, srcValue) {
     }
     return srcValue;
 }
-var mergeWithPagination = function (object, other) {
+export var mergeWithPagination = function (object, other) {
     return mergeWith({}, object, other, customizer);
 };
-export default mergeWithPagination;
 var getMergeKeys = function (mergeKey) {
     if (!mergeKey)
         return [];
@@ -104,6 +103,41 @@ export var createAsyncPaginationThunk = function (typePrefix, payloadCreator, op
                         return [2 /*return*/, __assign(__assign({}, response), (_a = {}, _a[pageKey] = initialPage, _a[countKey] = initialCount, _a))];
                     }
                     return [2 /*return*/, mergeWithPagination(prevState, __assign(__assign({}, response), (_b = {}, _b[pageKey] = prevState[pageKey] + 1, _b[countKey] = (_c = response[countKey]) !== null && _c !== void 0 ? _c : prevState[countKey], _b)))];
+            }
+        });
+    }); };
+    return createAsyncThunk(typePrefix, newPayloadCreator, options);
+};
+export var createAsyncRefreshThunk = function (typePrefix, payloadCreator, options) {
+    var _a = options !== null && options !== void 0 ? options : {}, mergeKey = _a.mergeKey, _b = _a.pageKey, pageKey = _b === void 0 ? "page" : _b, _c = _a.initialPage, initialPage = _c === void 0 ? 1 : _c, _d = _a.countKey, countKey = _d === void 0 ? "count" : _d, _e = _a.initialCount, initialCount = _e === void 0 ? 0 : _e;
+    var mergeKeys = getMergeKeys(mergeKey);
+    var newPayloadCreator = function (arg, thunkAPI) { return __awaiter(void 0, void 0, void 0, function () {
+        var response, state, prevState, nextState;
+        var _a;
+        return __generator(this, function (_b) {
+            switch (_b.label) {
+                case 0: return [4 /*yield*/, payloadCreator(arg, thunkAPI)];
+                case 1:
+                    response = (_b.sent());
+                    if (!mergeKey) {
+                        return [2 /*return*/, response];
+                    }
+                    if (!response) {
+                        return [2 /*return*/, response];
+                    }
+                    if (axios.isAxiosError(response)) {
+                        return [2 /*return*/, response];
+                    }
+                    state = thunkAPI.getState();
+                    if (mergeKeys.length === 0) {
+                        return [2 /*return*/, response];
+                    }
+                    prevState = getPrevState(state, mergeKeys);
+                    nextState = __assign(__assign({}, response), (_a = {}, _a[pageKey] = initialPage, _a[countKey] = initialCount, _a));
+                    if (!prevState || !prevState[pageKey]) {
+                        return [2 /*return*/, nextState];
+                    }
+                    return [2 /*return*/, mergeWithPagination(prevState, nextState)];
             }
         });
     }); };
