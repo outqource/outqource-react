@@ -114,17 +114,15 @@ export const createAsyncPaginationThunk = <
 export const createAsyncRefreshThunk = <Returned, ThunkArg = void>(
   typePrefix: string,
   payloadCreator: AsyncThunkPayloadCreator<Returned, ThunkArg, {}>,
-  extraOptions?: AsyncThunkExtraOptions,
+  extraOptions?: Omit<AsyncThunkExtraOptions, "mergeKey">,
   options?: AsyncThunkOptions<ThunkArg, {}>
 ) => {
   const {
-    mergeKey,
     pageKey = "page",
     initialPage = 1,
     countKey = "count",
     initialCount = 0,
   } = extraOptions ?? {};
-  const mergeKeys = getMergeKeys(mergeKey);
 
   const newPayloadCreator: AsyncThunkPayloadCreator<
     Returned,
@@ -132,10 +130,6 @@ export const createAsyncRefreshThunk = <Returned, ThunkArg = void>(
     {}
   > = async (arg, thunkAPI) => {
     const response = (await payloadCreator(arg, thunkAPI)) as any;
-
-    if (!mergeKey) {
-      return response;
-    }
     if (!response) {
       return response;
     }
@@ -143,23 +137,13 @@ export const createAsyncRefreshThunk = <Returned, ThunkArg = void>(
       return response;
     }
 
-    const state = thunkAPI.getState() as any;
-    if (mergeKeys.length === 0) {
-      return response;
-    }
-
-    const prevState = getPrevState(state, mergeKeys);
     const nextState = {
       ...response,
       [pageKey]: initialPage,
       [countKey]: initialCount,
     };
 
-    if (!prevState || !prevState[pageKey]) {
-      return nextState;
-    }
-
-    return mergeWithPagination(prevState, nextState);
+    return nextState;
   };
 
   return createAsyncThunk(typePrefix, newPayloadCreator, options);

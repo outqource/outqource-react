@@ -19,5 +19,5 @@ declare type AsyncThunkConfig = {
     rejectedMeta?: unknown;
 };
 export declare const createAsyncPaginationThunk: <Returned, ThunkArg = void, ThunkApiConfig extends AsyncThunkConfig = {}>(typePrefix: string, payloadCreator: AsyncThunkPayloadCreator<Returned, ThunkArg, {}>, extraOptions?: AsyncThunkExtraOptions | undefined, options?: AsyncThunkOptions<ThunkArg, {}> | undefined) => import("@reduxjs/toolkit").AsyncThunk<Returned, ThunkArg, {}>;
-export declare const createAsyncRefreshThunk: <Returned, ThunkArg = void>(typePrefix: string, payloadCreator: AsyncThunkPayloadCreator<Returned, ThunkArg, {}>, extraOptions?: AsyncThunkExtraOptions | undefined, options?: AsyncThunkOptions<ThunkArg, {}> | undefined) => import("@reduxjs/toolkit").AsyncThunk<Returned, ThunkArg, {}>;
+export declare const createAsyncRefreshThunk: <Returned, ThunkArg = void>(typePrefix: string, payloadCreator: AsyncThunkPayloadCreator<Returned, ThunkArg, {}>, extraOptions?: Omit<AsyncThunkExtraOptions, "mergeKey"> | undefined, options?: AsyncThunkOptions<ThunkArg, {}> | undefined) => import("@reduxjs/toolkit").AsyncThunk<Returned, ThunkArg, {}>;
 export {};
