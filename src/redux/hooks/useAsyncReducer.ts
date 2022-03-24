@@ -1,12 +1,31 @@
-import useAsyncSelector, { IUseAsyncSelector } from './useAsyncSelector';
-import useAsyncDispatch, { IUseAsyncDispatch } from './useAsyncDispatch';
+import useAsyncSelector, { IUseAsyncSelector } from "./useAsyncSelector";
+import useAsyncDispatch, { IUseAsyncDispatch } from "./useAsyncDispatch";
 
 export type IUseAsyncReducer = IUseAsyncSelector & IUseAsyncDispatch;
 
-const useAsyncReducer = ({ stateKey, paginationKey, limit, ...props }: IUseAsyncReducer) => {
+const useAsyncReducer = ({
+  stateKey,
+  paginationKey,
+  limit,
+  ...props
+}: IUseAsyncReducer) => {
   return () => {
-    const { data, error, pagination } = useAsyncSelector({ stateKey, paginationKey, limit });
-    const { setData, setError, setStatus, setPage, setCount, clear, clearData } = useAsyncDispatch(props);
+    const { data, error, pagination } = useAsyncSelector({
+      stateKey,
+      paginationKey,
+      limit,
+    });
+    const {
+      setData,
+      setError,
+      setStatus,
+      setPage,
+      setCount,
+      clear,
+      clearData,
+      getData,
+      refreshData,
+    } = useAsyncDispatch(props);
 
     return {
       data,
@@ -19,6 +38,8 @@ const useAsyncReducer = ({ stateKey, paginationKey, limit, ...props }: IUseAsync
       setCount,
       clear,
       clearData,
+      getData,
+      refreshData,
     };
   };
 };
