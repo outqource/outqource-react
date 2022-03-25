@@ -1,78 +1,31 @@
-import React from 'react';
-import { useSelector } from 'react-redux';
-
-export type AsyncSelectorPagination =
-  | {
-      page: number;
-      count: number;
-      currentCount: number;
-      limit: number;
-      isPrev: boolean;
-      isNext: boolean;
-    }
-  | undefined;
+import { useSelector, shallowEqual } from 'react-redux';
 
 export type IUseAsyncSelector = {
   stateKey: string;
-  paginationKey?: string;
-  limit?: number;
+  stateItemKeys: string | string[];
 };
 
 export type TUseAsyncSelector = {
-  data: any;
-  error: any;
-  pagination: AsyncSelectorPagination;
+  [key: string]: any;
 };
 
-const useAsyncSelector = ({ stateKey, paginationKey = 'rows', limit = 20 }: IUseAsyncSelector): TUseAsyncSelector => {
-  const selectState = useSelector((state: any) => {
-    const stateKeys = stateKey.split('.');
-    let itemState = state;
-    stateKeys.forEach((stateKey) => {
-      itemState = itemState[stateKey];
-    });
+const useAsyncSelector = ({ stateKey, stateItemKeys }: IUseAsyncSelector): TUseAsyncSelector => {
+  const state = useSelector((state: any) => {
+    const firstState = state[stateKey];
+    const selector: any = {};
 
-    return itemState;
-  });
-
-  const data = React.useMemo(() => {
-    return selectState.data ?? null;
-  }, [selectState]);
-
-  const error = React.useMemo(() => {
-    return selectState.error ?? null;
-  }, [selectState]);
-
-  const pagination = React.useMemo((): AsyncSelectorPagination => {
-    if (!paginationKey) return undefined;
-    const { page = 1, count = 0 } = selectState.data ?? {};
-    const data = selectState.data ? selectState.data[paginationKey] : [];
-
-    let currentCount = 0;
-    let isPrev = false;
-    let isNext = false;
-
-    if (Array.isArray(data) && data.length > 0) {
-      currentCount = data.length;
-      if (page > 1) isPrev = true;
-      if (data.length < count) isNext = true;
+    if (Array.isArray(stateItemKeys)) {
+      stateItemKeys.forEach((itemKey) => {
+        selector[`${itemKey}Data`] = firstState[itemKey]?.data;
+        selector[`${itemKey}Status`] = firstState[itemKey]?.status;
+        selector[`${itemKey}Error`] = firstState[itemKey]?.error;
+      });
     }
 
-    return {
-      page,
-      count,
-      currentCount,
-      limit,
-      isPrev,
-      isNext,
-    };
-  }, [selectState, paginationKey, limit]);
+    return selector;
+  }, shallowEqual);
 
-  return {
-    data,
-    error,
-    pagination,
-  };
+  return state;
 };
 
 export default useAsyncSelector;

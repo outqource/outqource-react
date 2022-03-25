@@ -45,6 +45,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
+/* eslint-disable react-hooks/rules-of-hooks */
 import React from "react";
 import { useDispatch } from "react-redux";
 import { createAsyncModel } from "../lib";
@@ -53,16 +54,9 @@ var capitalizeString = function (text) {
         return text;
     return text[0].toUpperCase() + text.slice(1);
 };
-var getMethodName = function (stateKeys) {
-    if (stateKeys.length !== 2)
-        throw new Error("StateKey가 잘못되었습니다");
-    return "".concat(capitalizeString(stateKeys[1]));
-};
-export var createAsyncActions = function (stateKey) {
+export var createAsyncAction = function (dataKey) {
     var _a;
-    var stateKeys = stateKey.split(".");
-    var methodName = getMethodName(stateKeys);
-    var dataKey = stateKeys[1];
+    var methodName = capitalizeString(dataKey);
     var setData = function (state, action) {
         state[dataKey].data = action.payload;
     };
@@ -96,88 +90,54 @@ export var createAsyncActions = function (stateKey) {
         _a["clear".concat(methodName, "Data")] = clearData,
         _a;
 };
-export var getAsyncActions = function (actions, stateKey) {
-    var methodName = getMethodName(stateKey.split("."));
+export var createAsyncActions = function (dataKeys) {
+    if (Array.isArray(dataKeys)) {
+        return dataKeys.reduce(function (acc, dataKey) { return (__assign(__assign({}, acc), createAsyncAction(dataKey))); }, {});
+    }
+    else {
+        return createAsyncAction(dataKeys);
+    }
+};
+export var getAsyncActions = function (actions, dataKeys) {
     var filterActions = {};
-    Object.entries(actions).forEach(function (_a) {
-        var key = _a[0], value = _a[1];
-        if (key.includes(methodName)) {
-            filterActions[key.replace(methodName, "")] = value;
-        }
-    });
+    if (Array.isArray(dataKeys)) {
+        dataKeys.forEach(function (dataKey) {
+            var methodName = capitalizeString(dataKey);
+            Object.entries(actions).forEach(function (_a) {
+                var key = _a[0], value = _a[1];
+                if (key.includes(methodName)) {
+                    filterActions[key] = value;
+                }
+            });
+        });
+    }
+    else {
+        var dataKey = dataKeys;
+        var methodName_1 = capitalizeString(dataKey);
+        Object.entries(actions).forEach(function (_a) {
+            var key = _a[0], value = _a[1];
+            if (key.includes(methodName_1)) {
+                filterActions[key] = value;
+            }
+        });
+    }
     return filterActions;
 };
 var useAsyncDispatch = function (props) {
     var dispatch = useDispatch();
-    var setData = React.useCallback(function (data) {
-        if (props.setData) {
-            console.log(props.setData, data);
-            dispatch(props.setData(data));
-        }
-    }, [dispatch, props]);
-    var setError = React.useCallback(function (data) {
-        if (props.setError) {
-            dispatch(props.setError(data));
-        }
-    }, [dispatch, props]);
-    var setStatus = React.useCallback(function (data) {
-        if (props.setStatus) {
-            dispatch(props.setStatus(data));
-        }
-    }, [dispatch, props]);
-    var setPage = React.useCallback(function (data) {
-        if (props.setPage) {
-            dispatch(props.setPage(data));
-        }
-    }, [dispatch, props]);
-    var setCount = React.useCallback(function (data) {
-        if (props.setCount) {
-            dispatch(props.setCount(data));
-        }
-    }, [dispatch, props]);
-    var clear = React.useCallback(function () {
-        if (props.clear) {
-            dispatch(props.clear());
-        }
-    }, [dispatch, props]);
-    var clearData = React.useCallback(function () {
-        if (props.clearData) {
-            dispatch(props.clearData());
-        }
-    }, [dispatch, props]);
-    var getData = React.useCallback(function (data) { return __awaiter(void 0, void 0, void 0, function () {
-        return __generator(this, function (_a) {
-            switch (_a.label) {
-                case 0:
-                    if (!props.getData) return [3 /*break*/, 2];
-                    return [4 /*yield*/, dispatch(props.getData(data))];
-                case 1: return [2 /*return*/, _a.sent()];
-                case 2: return [2 /*return*/];
-            }
-        });
-    }); }, [dispatch, props]);
-    var refreshData = React.useCallback(function (data) { return __awaiter(void 0, void 0, void 0, function () {
-        return __generator(this, function (_a) {
-            switch (_a.label) {
-                case 0:
-                    if (!props.refreshData) return [3 /*break*/, 2];
-                    return [4 /*yield*/, dispatch(props.refreshData(data))];
-                case 1: return [2 /*return*/, _a.sent()];
-                case 2: return [2 /*return*/];
-            }
-        });
-    }); }, [dispatch, props]);
-    return {
-        setData: setData,
-        setError: setError,
-        setStatus: setStatus,
-        setPage: setPage,
-        setCount: setCount,
-        clear: clear,
-        clearData: clearData,
-        getData: getData,
-        refreshData: refreshData,
-    };
+    var dispatchActions = {};
+    Object.entries(props).forEach(function (_a) {
+        var key = _a[0], value = _a[1];
+        dispatchActions[key] = React.useCallback(function (data) { return __awaiter(void 0, void 0, void 0, function () {
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, dispatch(value(data))];
+                    case 1: return [2 /*return*/, _a.sent()];
+                }
+            });
+        }); }, [value]);
+    });
+    return dispatchActions;
 };
 export default useAsyncDispatch;
 //# sourceMappingURL=useAsyncDispatch.js.map

@@ -109,7 +109,7 @@ export var createAsyncPaginationThunk = function (typePrefix, payloadCreator, ex
     return createAsyncThunk(typePrefix, newPayloadCreator, options);
 };
 export var createAsyncRefreshThunk = function (typePrefix, payloadCreator, extraOptions, options) {
-    var _a = extraOptions !== null && extraOptions !== void 0 ? extraOptions : {}, _b = _a.pageKey, pageKey = _b === void 0 ? "page" : _b, _c = _a.initialPage, initialPage = _c === void 0 ? 1 : _c, _d = _a.countKey, countKey = _d === void 0 ? "count" : _d, _e = _a.initialCount, initialCount = _e === void 0 ? 0 : _e;
+    var _a = extraOptions !== null && extraOptions !== void 0 ? extraOptions : {}, _b = _a.pageKey, pageKey = _b === void 0 ? "page" : _b, _c = _a.initialPage, initialPage = _c === void 0 ? 1 : _c;
     var newPayloadCreator = function (arg, thunkAPI) { return __awaiter(void 0, void 0, void 0, function () {
         var response, nextState;
         var _a;
@@ -124,7 +124,7 @@ export var createAsyncRefreshThunk = function (typePrefix, payloadCreator, extra
                     if (axios.isAxiosError(response)) {
                         return [2 /*return*/, response];
                     }
-                    nextState = __assign(__assign({}, response), (_a = {}, _a[pageKey] = initialPage, _a[countKey] = initialCount, _a));
+                    nextState = __assign(__assign({}, response), (_a = {}, _a[pageKey] = initialPage, _a));
                     return [2 /*return*/, nextState];
             }
         });

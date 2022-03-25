@@ -1,18 +1,11 @@
+/* eslint-disable react-hooks/rules-of-hooks */
 import React from "react";
 import { useDispatch } from "react-redux";
 import { PayloadAction } from "@reduxjs/toolkit";
 import { AsyncModelStatus, createAsyncModel } from "../lib";
 
 export type IUseAsyncDispatch = {
-  setData?: Function;
-  setError?: Function;
-  setStatus?: Function;
-  setPage?: Function;
-  setCount?: Function;
-  clear?: Function;
-  clearData?: Function;
-  getData?: Function;
-  refreshData?: Function;
+  [key: string]: Function;
 };
 
 const capitalizeString = (text: string): string => {
@@ -20,15 +13,8 @@ const capitalizeString = (text: string): string => {
   return text[0].toUpperCase() + text.slice(1);
 };
 
-const getMethodName = (stateKeys: string[]): string => {
-  if (stateKeys.length !== 2) throw new Error("StateKey가 잘못되었습니다");
-  return `${capitalizeString(stateKeys[1])}`;
-};
-
-export const createAsyncActions = (stateKey: string) => {
-  const stateKeys = stateKey.split(".");
-  const methodName = getMethodName(stateKeys);
-  const dataKey = stateKeys[1];
+export const createAsyncAction = (dataKey: string) => {
+  const methodName = capitalizeString(dataKey);
 
   const setData = (state: any, action: PayloadAction<any>) => {
     state[dataKey].data = action.payload;
@@ -71,15 +57,43 @@ export const createAsyncActions = (stateKey: string) => {
   };
 };
 
-export const getAsyncActions = (actions: object, stateKey: string) => {
-  const methodName = getMethodName(stateKey.split("."));
+export const createAsyncActions = (dataKeys: string | string[]) => {
+  if (Array.isArray(dataKeys)) {
+    return dataKeys.reduce(
+      (acc, dataKey) => ({ ...acc, ...createAsyncAction(dataKey) }),
+      {}
+    );
+  } else {
+    return createAsyncAction(dataKeys);
+  }
+};
 
+export const getAsyncActions = (
+  actions: object,
+  dataKeys: string | string[]
+) => {
   const filterActions: any = {};
-  Object.entries(actions).forEach(([key, value]) => {
-    if (key.includes(methodName)) {
-      filterActions[key.replace(methodName, "")] = value;
-    }
-  });
+
+  if (Array.isArray(dataKeys)) {
+    dataKeys.forEach((dataKey) => {
+      const methodName = capitalizeString(dataKey);
+
+      Object.entries(actions).forEach(([key, value]) => {
+        if (key.includes(methodName)) {
+          filterActions[key] = value;
+        }
+      });
+    });
+  } else {
+    const dataKey = dataKeys;
+    const methodName = capitalizeString(dataKey);
+
+    Object.entries(actions).forEach(([key, value]) => {
+      if (key.includes(methodName)) {
+        filterActions[key] = value;
+      }
+    });
+  }
 
   return filterActions;
 };
@@ -87,93 +101,17 @@ export const getAsyncActions = (actions: object, stateKey: string) => {
 const useAsyncDispatch = (props: IUseAsyncDispatch) => {
   const dispatch = useDispatch();
 
-  const setData = React.useCallback(
-    (data?: any) => {
-      if (props.setData) {
-        console.log(props.setData, data);
-        dispatch(props.setData(data));
-      }
-    },
-    [dispatch, props]
-  );
+  const dispatchActions: any = {};
+  Object.entries(props).forEach(([key, value]) => {
+    dispatchActions[key] = React.useCallback(
+      async (data?: any) => {
+        return await dispatch(value(data));
+      },
+      [value]
+    );
+  });
 
-  const setError = React.useCallback(
-    (data?: any) => {
-      if (props.setError) {
-        dispatch(props.setError(data));
-      }
-    },
-    [dispatch, props]
-  );
-
-  const setStatus = React.useCallback(
-    (data: AsyncModelStatus) => {
-      if (props.setStatus) {
-        dispatch(props.setStatus(data));
-      }
-    },
-    [dispatch, props]
-  );
-
-  const setPage = React.useCallback(
-    (data: number) => {
-      if (props.setPage) {
-        dispatch(props.setPage(data));
-      }
-    },
-    [dispatch, props]
-  );
-
-  const setCount = React.useCallback(
-    (data: number) => {
-      if (props.setCount) {
-        dispatch(props.setCount(data));
-      }
-    },
-    [dispatch, props]
-  );
-
-  const clear = React.useCallback(() => {
-    if (props.clear) {
-      dispatch(props.clear());
-    }
-  }, [dispatch, props]);
-
-  const clearData = React.useCallback(() => {
-    if (props.clearData) {
-      dispatch(props.clearData());
-    }
-  }, [dispatch, props]);
-
-  const getData = React.useCallback(
-    async <T = any>(data?: T) => {
-      if (props.getData) {
-        return await dispatch(props.getData(data));
-      }
-    },
-    [dispatch, props]
-  );
-
-  const refreshData = React.useCallback(
-    async <T = any>(data?: T) => {
-      if (props.refreshData) {
-        return await dispatch(props.refreshData(data));
-      }
-    },
-    [dispatch, props]
-  );
-
-  return {
-    setData,
-    setError,
-    setStatus,
-    setPage,
-    setCount,
-    clear,
-    clearData,
-    getData,
-    refreshData,
-  };
+  return dispatchActions;
 };
 
 export default useAsyncDispatch;

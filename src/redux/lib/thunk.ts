@@ -117,12 +117,7 @@ export const createAsyncRefreshThunk = <Returned, ThunkArg = void>(
   extraOptions?: Omit<AsyncThunkExtraOptions, "mergeKey">,
   options?: AsyncThunkOptions<ThunkArg, {}>
 ) => {
-  const {
-    pageKey = "page",
-    initialPage = 1,
-    countKey = "count",
-    initialCount = 0,
-  } = extraOptions ?? {};
+  const { pageKey = "page", initialPage = 1 } = extraOptions ?? {};
 
   const newPayloadCreator: AsyncThunkPayloadCreator<
     Returned,
@@ -140,7 +135,6 @@ export const createAsyncRefreshThunk = <Returned, ThunkArg = void>(
     const nextState = {
       ...response,
       [pageKey]: initialPage,
-      [countKey]: initialCount,
     };
 
     return nextState;

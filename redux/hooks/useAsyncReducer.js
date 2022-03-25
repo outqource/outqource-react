@@ -1,3 +1,14 @@
+var __assign = (this && this.__assign) || function () {
+    __assign = Object.assign || function(t) {
+        for (var s, i = 1, n = arguments.length; i < n; i++) {
+            s = arguments[i];
+            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
+                t[p] = s[p];
+        }
+        return t;
+    };
+    return __assign.apply(this, arguments);
+};
 var __rest = (this && this.__rest) || function (s, e) {
     var t = {};
     for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p) && e.indexOf(p) < 0)
@@ -13,28 +24,11 @@ var __rest = (this && this.__rest) || function (s, e) {
 import useAsyncSelector from './useAsyncSelector';
 import useAsyncDispatch from './useAsyncDispatch';
 var useAsyncReducer = function (_a) {
-    var stateKey = _a.stateKey, paginationKey = _a.paginationKey, limit = _a.limit, props = __rest(_a, ["stateKey", "paginationKey", "limit"]);
+    var stateKey = _a.stateKey, stateItemKeys = _a.stateItemKeys, props = __rest(_a, ["stateKey", "stateItemKeys"]);
     return function () {
-        var _a = useAsyncSelector({
-            stateKey: stateKey,
-            paginationKey: paginationKey,
-            limit: limit,
-        }), data = _a.data, error = _a.error, pagination = _a.pagination;
-        var _b = useAsyncDispatch(props), setData = _b.setData, setError = _b.setError, setStatus = _b.setStatus, setPage = _b.setPage, setCount = _b.setCount, clear = _b.clear, clearData = _b.clearData, getData = _b.getData, refreshData = _b.refreshData;
-        return {
-            data: data,
-            error: error,
-            pagination: pagination,
-            setData: setData,
-            setError: setError,
-            setStatus: setStatus,
-            setPage: setPage,
-            setCount: setCount,
-            clear: clear,
-            clearData: clearData,
-            getData: getData,
-            refreshData: refreshData,
-        };
+        var selector = useAsyncSelector({ stateKey: stateKey, stateItemKeys: stateItemKeys });
+        var dispatcher = useAsyncDispatch(props);
+        return __assign(__assign({}, selector), dispatcher);
     };
 };
 export default useAsyncReducer;
