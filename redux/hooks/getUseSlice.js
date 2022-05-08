@@ -45,9 +45,10 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
-import React from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-var getUseSlice = function (slice) {
+import React from "react";
+import { useDispatch, useSelector } from "react-redux";
+var getUseSlice = function (slice, promises) {
+    if (promises === void 0) { promises = {}; }
     var name = slice.name, actions = slice.actions;
     return function () {
         // eslint-disable-next-line react-hooks/rules-of-hooks
@@ -63,9 +64,21 @@ var getUseSlice = function (slice) {
                         case 1: return [2 /*return*/, _a.sent()];
                     }
                 });
-            }); }, [dispatch, actionFunc]);
+            }); }, [dispatch]);
         });
-        return __assign(__assign({}, sliceState), sliceActions);
+        var promiseActions = {};
+        Object.entries(promises).forEach(function (_a) {
+            var promiseActionKey = _a[0], promiseActionFunc = _a[1];
+            promiseActions[promiseActionKey] = React.useCallback(function (value) { return __awaiter(void 0, void 0, void 0, function () {
+                return __generator(this, function (_a) {
+                    switch (_a.label) {
+                        case 0: return [4 /*yield*/, dispatch(promiseActionFunc(value))];
+                        case 1: return [2 /*return*/, _a.sent()];
+                    }
+                });
+            }); }, [dispatch]);
+        });
+        return __assign(__assign(__assign({}, sliceState), sliceActions), promiseActions);
     };
 };
 export default getUseSlice;
