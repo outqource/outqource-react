@@ -16,7 +16,7 @@
   "jsnext:main": "build/index.es.js",
   "scripts": {
     "clear": "node scripts/clear-build.js",
-    "build": "yarn clear & tsc -b && node scripts/copy-build.js",
+    "build": "yarn clear && tsc -b && node scripts/copy-build.js",
     "prepublishOnly": "yarn build"
   },
   "dependencies": {
