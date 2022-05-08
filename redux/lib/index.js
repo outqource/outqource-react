@@ -1,5 +1,6 @@
 import { Provider, useDispatch, useSelector } from 'react-redux';
-import { createSlice, configureStore, createAsyncThunk } from '@reduxjs/toolkit';
+import { configureStore, createAsyncThunk } from '@reduxjs/toolkit';
+import createSlice from "./createSlice";
 export * from './model';
 export * from './reducer';
 export * from './thunk';
