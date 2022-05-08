@@ -1,6 +1,6 @@
 {
   "name": "outqource-react",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "repository": "https://github.com/outqource/outqource-react",
   "author": "AlpoxDev <contact@alpox.dev>",
   "description": "OUTQOURCE React Library",
@@ -16,7 +16,8 @@
   "jsnext:main": "build/index.es.js",
   "scripts": {
     "clear": "node scripts/clear-build.js",
-    "build": "yarn clear & tsc -b && node scripts/copy-build.js"
+    "build": "yarn clear & tsc -b && node scripts/copy-build.js",
+    "prepublishOnly": "yarn build"
   },
   "dependencies": {
     "axios": "^0.26.0",
