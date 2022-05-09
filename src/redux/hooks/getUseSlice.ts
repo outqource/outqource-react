@@ -26,10 +26,11 @@ type TUseSlice<
 const getUseSlice = <
   State,
   CaseReducers extends SliceCaseReducers<State> & Reducer<State>,
-  Name extends string = string
+  Name extends string = string,
+  Promises extends Record<string, AsyncThunk<any, any, any>> = {}
 >(
   slice: Slice<State, CaseReducers, Name>,
-  promises: Record<string, AsyncThunk<any, any, any>> = {}
+  promises: Promises = {} as Promises
 ) => {
   const { name, actions } = slice;
 
@@ -50,7 +51,7 @@ const getUseSlice = <
 
     const promiseActions = {};
     Object.entries(promises).forEach(
-      ([promiseActionKey, promiseActionFunc]: [keyof typeof promises, any]) => {
+      ([promiseActionKey, promiseActionFunc]) => {
         promiseActions[promiseActionKey] = React.useCallback(
           async (value: any) => {
             return await dispatch(promiseActionFunc(value));
