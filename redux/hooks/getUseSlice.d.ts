@@ -9,5 +9,5 @@ declare type PromiseAction<T extends Record<string, AsyncThunk<any, any, any>>> 
     [H in keyof T]: (...args: any[]) => Promise<any>;
 };
 declare type TUseSlice<State, T extends CaseReducerActions<any>, K extends Record<string, AsyncThunk<any, any, any>>> = State & ReducerStateActions<keyof State> & Action<T> & PromiseAction<K>;
-declare const getUseSlice: <State, CaseReducers extends SliceCaseReducers<State> & Reducer<State>, Name extends string = string>(slice: Slice<State, CaseReducers, Name>, promises?: Record<string, AsyncThunk<any, any, any>>) => () => TUseSlice<State, CaseReducerActions<CaseReducers>, Record<string, AsyncThunk<any, any, any>>>;
+declare const getUseSlice: <State, CaseReducers extends SliceCaseReducers<State> & Reducer<State>, Name extends string = string, Promises extends Record<string, AsyncThunk<any, any, any>> = {}>(slice: Slice<State, CaseReducers, Name>, promises?: Promises) => () => TUseSlice<State, CaseReducerActions<CaseReducers>, Promises>;
 export default getUseSlice;
