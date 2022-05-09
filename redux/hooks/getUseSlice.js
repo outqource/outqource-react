@@ -57,14 +57,9 @@ var getUseSlice = function (slice, promises) {
         var sliceActions = {};
         Object.entries(actions).forEach(function (_a) {
             var actionKey = _a[0], actionFunc = _a[1];
-            sliceActions[actionKey] = React.useCallback(function (value) { return __awaiter(void 0, void 0, void 0, function () {
-                return __generator(this, function (_a) {
-                    switch (_a.label) {
-                        case 0: return [4 /*yield*/, dispatch(actionFunc(value))];
-                        case 1: return [2 /*return*/, _a.sent()];
-                    }
-                });
-            }); }, [dispatch]);
+            sliceActions[actionKey] = React.useCallback(function (value) {
+                return dispatch(actionFunc(value));
+            }, [dispatch]);
         });
         var promiseActions = {};
         Object.entries(promises).forEach(function (_a) {

@@ -41,8 +41,8 @@ const getUseSlice = <
     const sliceActions = {};
     Object.entries(actions).forEach(([actionKey, actionFunc]) => {
       sliceActions[actionKey] = React.useCallback(
-        async (value: any) => {
-          return await dispatch(actionFunc(value));
+        (value: any) => {
+          return dispatch(actionFunc(value));
         },
         [dispatch]
       );
