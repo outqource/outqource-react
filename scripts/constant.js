@@ -1,4 +1,4 @@
-const buildFolders = ['shared', 'redux', 'mobx', 'components', 'native', 'web', 'types'];
+const buildFolders = ['shared', 'recoil'];
 
 module.exports = {
   buildFolders,
