@@ -1,10 +1,9 @@
-import { useCallback, useRef } from 'react';
-import { debounce } from 'lodash-es';
-import { decamelizeKeys } from 'humps';
 import GA4React from 'ga-4-react';
-
-import { getGaKey } from '../utils/url';
+import { decamelizeKeys } from 'humps';
+import { debounce } from 'lodash-es';
+import { useCallback, useRef } from 'react';
 import { EventNameTypes, DataType } from '../constants/ga';
+import { getGaKey } from '../utils/url';
 
 export interface GAProps {
   action: string;

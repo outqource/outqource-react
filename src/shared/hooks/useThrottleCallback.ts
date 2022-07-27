@@ -1,5 +1,5 @@
-import { useMemo, useRef } from 'react';
 import { DebouncedFunc, throttle } from 'lodash-es';
+import { useMemo, useRef } from 'react';
 
 function useThrottleCallback<T extends any[]>(cb: (...args: T) => void, delay: number = 300) {
   const cbRef = useRef(cb);

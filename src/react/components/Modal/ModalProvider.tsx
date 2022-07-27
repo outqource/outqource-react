@@ -121,10 +121,8 @@ export const reducer = (state: ModalType[], action: any): ModalType[] => {
   switch (type) {
     case ActionType.create:
       return createModalState(state, action);
-    // return [...state, action.payload];
     case ActionType.createUnshift:
       return createModalState(state, action, true);
-    // return [action.payload, ...state];
     case ActionType.delete:
       return deleteModalState(state, action);
     case ActionType.clear:
