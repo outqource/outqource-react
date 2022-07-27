@@ -3,11 +3,7 @@ import useEventListener from './useEventListener';
 
 type Handler = (event: MouseEvent) => void;
 
-function useOnClickOutside<T extends HTMLElement = HTMLElement>(
-  refs: RefObject<T>[] | RefObject<T>,
-  handler: Handler,
-  mouseEvent: 'mousedown' | 'mouseup' = 'mousedown'
-): void {
+function useOnClickOutside<T extends HTMLElement = HTMLElement>(refs: RefObject<T>[] | RefObject<T>, handler: Handler, mouseEvent: 'mousedown' | 'mouseup' = 'mousedown'): void {
   useEventListener(mouseEvent, (event: MouseEvent) => {
     if (Array.isArray(refs)) {
       let isNotContained = false;

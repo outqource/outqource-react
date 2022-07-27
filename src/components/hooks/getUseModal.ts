@@ -1,12 +1,5 @@
-import { useCallback, useContext, useMemo, useEffect } from "react";
-import {
-  ModalContext,
-  createModal as createModalAction,
-  createUnshiftModal as createUnshiftModalAction,
-  deleteModal as deleteModalAction,
-  clearModal as clearModalAction,
-  ModalType,
-} from "../lib";
+import { useCallback, useContext, useMemo, useEffect } from 'react';
+import { ModalContext, createModal as createModalAction, createUnshiftModal as createUnshiftModalAction, deleteModal as deleteModalAction, clearModal as clearModalAction, ModalType } from '../lib';
 
 export type UseModalOptions = {
   closeTimeoutMS?: number;
@@ -16,14 +9,8 @@ export type UseModalOptions = {
 const getUseModal = (modalComponents: any) => {
   return (name: string, config?: UseModalOptions) => {
     const { state, dispatch } = useContext(ModalContext);
-    const closeTimeoutMS = useMemo(
-      (): number => config?.closeTimeoutMS ?? 0,
-      [config]
-    );
-    const duplicate = useMemo(
-      (): boolean => config?.duplicate ?? false,
-      [config]
-    );
+    const closeTimeoutMS = useMemo((): number => config?.closeTimeoutMS ?? 0, [config]);
+    const duplicate = useMemo((): boolean => config?.duplicate ?? false, [config]);
 
     // 열려있는지 체크
     const isOpen: boolean = useMemo(() => {
@@ -79,7 +66,7 @@ const getUseModal = (modalComponents: any) => {
           dispatch(createUnshiftModalAction(newModal));
         }
       },
-      [dispatch, name, closeTimeoutMS, duplicate, deleteModal]
+      [dispatch, name, closeTimeoutMS, duplicate, deleteModal],
     );
 
     useEffect(() => {

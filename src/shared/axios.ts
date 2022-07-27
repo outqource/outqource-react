@@ -1,10 +1,5 @@
-import axios, {
-  Method,
-  AxiosInstance,
-  AxiosRequestHeaders,
-  AxiosResponse,
-} from "axios";
-import queryString from "query-string";
+import axios, { Method, AxiosInstance, AxiosRequestHeaders, AxiosResponse } from 'axios';
+import queryString from 'query-string';
 
 export interface onRequestProps {
   instance?: AxiosInstance;
@@ -15,14 +10,7 @@ export interface onRequestProps {
   headers?: AxiosRequestHeaders;
 }
 
-export const onRequest = async ({
-  instance = axios,
-  url,
-  method,
-  query,
-  data,
-  headers,
-}: onRequestProps): Promise<AxiosResponse> => {
+export const onRequest = async ({ instance = axios, url, method, query, data, headers }: onRequestProps): Promise<AxiosResponse> => {
   try {
     if (query) {
       url = `${url}?${queryString.stringify(query)}`;

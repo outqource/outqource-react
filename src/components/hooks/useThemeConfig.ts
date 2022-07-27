@@ -32,7 +32,7 @@ const useThemeConfig = ({ component, ...props }: ThemeConfigProps): string => {
     if (foundedList.length === 0) return '';
 
     let serializeStyle: string | undefined = undefined;
-    foundedList.forEach((founded) => {
+    foundedList.forEach(founded => {
       if (!serializeStyle) {
         const style = theme[component][founded];
         serializeStyle = css(style)?.styles || '';
