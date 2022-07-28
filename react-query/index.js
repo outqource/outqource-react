@@ -9,7 +9,7 @@ var __assign = (this && this.__assign) || function () {
     };
     return __assign.apply(this, arguments);
 };
-import { QueryClient, QueryClientProvider, useQuery, useMutation } from 'react-query';
+import { QueryClient, QueryClientProvider, useQuery, useMutation, useInfiniteQuery } from 'react-query';
 import { ReactQueryDevtools } from 'react-query/devtools';
 export var defaultQueryClientOptions = {
     defaultOptions: { queries: { refetchOnMount: false } },
@@ -23,6 +23,18 @@ export var createUseQueries = function (params) {
             var queryFn = (props.fn ? param.fn(props.fn) : param.fn);
             var queryOptions = __assign(__assign({}, (param.options || {})), (props.options || {}));
             return useQuery(queryKey, queryFn, queryOptions);
+        };
+    });
+};
+export var createUseInfinityQueries = function (params) {
+    return params.map(function (param) {
+        return function (props) {
+            if (!props)
+                props = {};
+            var queryKey = (typeof param.key !== 'function' ? param.key : param.key(props.key));
+            var queryFn = (props.fn ? param.fn(props.fn) : param.fn);
+            var queryOptions = __assign(__assign({}, (param.options || {})), (props.options || {}));
+            return useInfiniteQuery(queryKey, queryFn, queryOptions);
         };
     });
 };
