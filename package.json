@@ -1,6 +1,6 @@
 {
   "name": "outqource-react",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "repository": "https://github.com/outqource/outqource-react",
   "author": "AlpoxDev <contact@alpox.dev>",
   "description": "Outqource React Library",
@@ -33,6 +33,7 @@
     "query-string": "^7.1.1",
     "react": "^18.2.0",
     "react-i18next": "^11.18.3",
+    "react-query": "3.39.1",
     "react-redux": "^8.0.2",
     "react-transition-group": "^4.4.2",
     "react-use": "^17.4.0",
